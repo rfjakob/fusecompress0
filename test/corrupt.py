@@ -14,7 +14,12 @@ import stat
 for comp in ['lzo','lzma','gz','bz2','null']:
   print comp
   os.mkdir('test')
-  os.system('../fusecompress -c ' + comp + ' -d test')
+  ret = os.system('../fusecompress -c ' + comp + ' -d test')
+  exitcode = os.WEXITSTATUS(ret)
+  if exitcode != 0:
+    print "exit code %d" % (exitcode)
+    os.rmdir('test')
+    continue
   a = open('test/a','w')
   a.write('blafwpegfjwegwegherjhj32r0grobfn23t-=wefopjweofewfjwopefjp' * 1000)
   a.close()
