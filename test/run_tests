@@ -4,6 +4,9 @@ rm -fr test
 fail=0
 for i in *.py *.sh
 do
+	if [[ -d $i ]]; then
+		continue
+	fi
 	echo -n "${i}: "
 	if test ${i#*.} = py
 	then
